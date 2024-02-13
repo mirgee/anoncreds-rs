@@ -50,8 +50,12 @@ impl RevocationStatusList {
         self.timestamp
     }
 
-    pub(crate) const fn state(&self) -> &bitvec::vec::BitVec {
+    pub const fn state(&self) -> &bitvec::vec::BitVec {
         &self.revocation_list
+    }
+
+    pub fn accum(&self) -> Option<Accumulator> {
+        self.accum
     }
 
     pub(crate) fn state_owned(&self) -> bitvec::vec::BitVec {
@@ -116,7 +120,7 @@ impl RevocationStatusList {
         Ok(())
     }
 
-    pub(crate) fn new(
+    pub fn new(
         rev_reg_def_id: Option<&str>,
         issuer_id: IssuerId,
         revocation_list: bitvec::vec::BitVec,
